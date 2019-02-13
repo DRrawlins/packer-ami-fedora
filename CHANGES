@@ -1,0 +1,5 @@
+Version 0.1.0
+ - made bumpver executable
+ - initial commit of template.json
+ - initial commit of Makefile and bumpver
+
