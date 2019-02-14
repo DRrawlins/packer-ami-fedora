@@ -7,4 +7,4 @@ validate: ## Validates the template file to ensure there are no glaring errors
 	@packer validate template.json
 
 build: validate ## Builds on the current machine via Virtualbox
-	@packer build template.json
+	@packer build --force template.json
