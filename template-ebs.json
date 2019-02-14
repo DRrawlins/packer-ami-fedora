@@ -1,0 +1,60 @@
+{  
+   "builders":[  
+      {  
+         "access_key": "{{user `var_aws_access_key`}}",
+         "ami_name": "Fedora 29 x86_64 Base {{timestamp}}",
+         "instance_type": "{{user `var_aws_instance_type`}}",
+         "region": "{{user `var_aws_region`}}",
+         "secret_key": "{{user `var_aws_secret_key`}}",
+         "source_ami": "{{user `var_source_ami`}}",
+         "type":"amazon-ebs",
+         "ami_description": "{{user `var_ami_description`}}",
+         "ena_support": true,
+         "associate_public_ip_address": true,
+         "ssh_username": "{{user `var_ssh_username`}}",
+         "ssh_pty": "true",
+         "vpc_id": "{{user `var_vpc_id`}}",
+         "subnet_id": "{{user `var_subnet_id`}}",
+         "tags": {
+           "Built": "{{isotime \"01-02-2006\"}}",
+           "Name": "{{user `var_buildname`}}",
+           "OS_Family": "Linux",
+           "OS_Version": "Fedora",
+           "Release": "29",
+           "TestStatus": "untested"
+      }
+      }
+   ],
+  "description": "{{var_ami_description}}",
+  "min_packer_version": "1.3.4",
+   "provisioners": [
+     {
+       "inline": [
+         "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done"
+       ],
+       "type": "shell"
+     },
+     {
+       "execute_command": "sudo -E -S sh '{{ .Path }}'",
+       "scripts": [
+         "scripts/prov1.sh",
+         "scripts/prov2.sh",
+         "scripts/configure_system.sh",
+         "scripts/configure_ssh.sh"
+       ],
+       "type": "shell"
+     }
+   ],
+  "variables": {
+    "var_aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "var_aws_instance_type": "t2.micro",
+    "var_aws_region": "us-east-1",
+    "var_aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+    "var_source_ami": "ami-0ca275747dcc62c18",
+    "var_ami_description": "Built from the cloud cut Fedora29. This is a fairly standard Fedora29 image.",
+    "var_ssh_username": "fedora",
+    "var_buildname": "packer-fedora29-base",
+    "var_subnet_id": "subnet-094a745239af704a3",
+    "var_subnet_id": "subnet-0922d75aa7940c4be"
+    }
+}
