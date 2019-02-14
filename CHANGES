@@ -1,3 +1,6 @@
+Version 0.3.0:
+ - moved over to ebs builder and also updated README
+
 Version 0.2.0:
  - added role_templates, for vmimport role
  - added small script for build vmimport role and trust policy
