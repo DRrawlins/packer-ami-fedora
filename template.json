@@ -8,23 +8,25 @@
          "iso_url": "{{user `var_iso_url`}}",
          "iso_checksum":"{{user `var_iso_checksum`}}",
          "iso_checksum_type":"{{user `var_iso_checksum_type`}}",
-         "headless":"",
+         "headless": false,
+         "http_directory": "http",
          "output_directory":"builds",
          "vm_name":"Minimal-Fedora29",
          "guest_os_type":"Fedora_64",
          "disk_size":"81920",
          "boot_wait":"5s",
-         "http_directory":"src",
 		 "boot_command": [
 		      "<tab> ",
-		      "inst.ks=http://{{.HTTPIP}}:{{.HTTPPort}}/fedora-29/anaconda-ks.cfg ",
+		      "inst.ks=http://{{.HTTPIP}}:{{.HTTPPort}}/anaconda-ks.cfg<enter><wait>",
 		      "biosdevname=0 ",
 		      "net.ifnames=0 ",
 		      "<enter>"
 		    ],
-         "ssh_username":"packer",
-         "ssh_password":"packer",
+         "ssh_username":"vagrant",
+         "ssh_port": 22,
+         "ssh_password":"vagrant",
          "ssh_wait_timeout":"1000s",
+         "ssh_pty" : "true",
          "shutdown_command":"sudo shutdown -h 0",
          "format":"ova"
       }
@@ -50,8 +52,8 @@
     "var_aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
     "var_aws_region": "us-east-1",
     "var_aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
-  	"var_iso_url": "http://download.fedoraproject.org/pub/fedora/linux/releases/29/Server/x86_64/iso/Fedora-Server-netinst-x86_64-29-1.2.iso",
-  	"var_iso_checksum": "aa7fb0e6e5b71774ebdaab0dae76bdd9246a5bc7aedc28b7f1103aaaf9750654",
+  	"var_iso_url": "https://fedora.mirror.constant.com/fedora/linux/releases/29/Server/x86_64/iso/Fedora-Server-dvd-x86_64-29-1.2.iso",
+  	"var_iso_checksum": "129d131a55e5bd518f593f0eacdce095f7c795fe7ccbef1f3f6aeb2ff9f99f35",
     "var_iso_checksum_type":"sha256",
     "var_ami_description": "Built from the a cut Fedora29. This is a fairly standard Fedora29 image."
     }
