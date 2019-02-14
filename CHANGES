@@ -1,3 +1,12 @@
+Version 0.2.0:
+ - added role_templates, for vmimport role
+ - added small script for build vmimport role and trust policy
+ - added in kickstart file
+ - modified gitignorer to ignore build folder
+ - added gitignore for packer artifacts
+ - got template working, will change over to EBS builder though as vm import is limited to Fedora 19-21 due to Kernel restrictions
+ - made some changes to the Makefile
+
 Version 0.1.0
  - made bumpver executable
  - initial commit of template.json
